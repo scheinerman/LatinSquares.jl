@@ -1,10 +1,23 @@
 export ortho_latin, check_ortho
 
 """
-`A,B = ortho_latin(n)` returns a pair of orthogonal `n`-by-`n`
-Latin squares.
+`A,B = ortho_latin(n,quick=true)` returns a pair of orthogonal `n`-by-`n`
+Latin squares. If `quick` is `true`, we first try to find the pair using
+basic number theory. If that fails, or if `quick` is set to `false`,
+integer programming is used.
+
+`A,B = ortho_latin(n,r,s)` builds the Latin squares `latin(n,r)`
+and `latin(n,s)` and, if they are orthogonal, returns them as the
+answer. (Otherwise, throws an error.) See: `find_ortho_parameters`.
 """
-function ortho_latin(n::Int)
+function ortho_latin(n::Int, quick::Bool=true)
+    if quick
+        try
+            r,s = find_ortho_parameters(n)
+            return ortho_latin(n,r,s)
+        end
+    end
+
     MOD = Model(solver=GurobiSolver())
     @variable(MOD, X[1:n,1:n,1:n], Bin)
     @variable(MOD, Y[1:n,1:n,1:n], Bin)
@@ -125,7 +138,30 @@ function ortho_latin(n::Int)
     end
 
     return A,B
+end
 
+
+function ortho_latin(n::Int, r::Int, s::Int)
+    A = latin(n,r)
+    B = latin(n,s)
+    @assert check_ortho(A,B) "Parameters n=$n, r=$r, and s=$s do not generate a pair of orthogonal Latin squares"
+    return A,B
+end
+
+"""
+`find_ortho_parameters(n)` tries to find parameters `r` and `s`
+so that `ortho_latin(n,r,s)` will succeed. Returns `(r,s)` if
+successful or throws an error if not.
+"""
+function find_ortho_parameters(n::Int)
+    for r=1:n-1
+        for s=1:n-1
+            if gcd(n,r)==1 && gcd(n,s)==1 && gcd(n,r-s)==1
+                return r,s
+            end
+        end
+    end
+    error("No parameters for n=$n found")
 end
 
 
