@@ -113,6 +113,19 @@ WARNING: Variable value not defined for component of X. Check that the model was
 WARNING: Variable value not defined for component of Y. Check that the model was properly solved.
 ```
 
+## Command Line
+
+In the `src` directory, the file `run_latin.jl` allows the user to find
+orthogonal Latin squares from the command line. The synatx is
+`julia run_julia.jl n`.
+
+Long-running jobs can be conveniently sent to a file like this:
+```
+$ nohup julia run_latin.jl 8 > output.txt &
+```
+
+
+
 <hr>
 
 ### Note
