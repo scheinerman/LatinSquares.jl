@@ -6,4 +6,7 @@ else
 end
 
 # write your own tests here
-@test 1 == 2
+A,B = ortho_latin(4)
+@test check_ortho(A,B)
+A,B = ortho_latin(5)
+@test check_ortho(A,B)
