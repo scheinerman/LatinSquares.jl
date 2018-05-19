@@ -120,6 +120,8 @@ WARNING: Variable value not defined for component of Y. Check that the model was
 ```
 
 <hr>
+
 ### Note
+
 We use the Gurobi solver. If that's not available on your system, edit the
 files to use another (such as the CBC solver).
