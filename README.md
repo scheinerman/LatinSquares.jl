@@ -33,7 +33,7 @@ julia> 10A+B
 ```
 
 By default, we use a simple number-theoretic construction. When that fails,
-we then result to integer programming.
+we then switch to integer programming.
 ```julia
 julia> A,B = ortho_latin(4);
 Academic license - for non-commercial use only
