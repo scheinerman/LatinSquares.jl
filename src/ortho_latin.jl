@@ -17,7 +17,7 @@ function ortho_latin(n::Int, quick::Bool=true)
             return ortho_latin(n,r,s)
         end
     end
-
+    println("No quick solution. Using integer programming.")
     MOD = Model(solver=GurobiSolver())
     @variable(MOD, X[1:n,1:n,1:n], Bin)
     @variable(MOD, Y[1:n,1:n,1:n], Bin)
