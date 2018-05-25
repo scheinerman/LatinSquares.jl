@@ -18,6 +18,11 @@ function ortho_latin(n::Int, quick::Bool=true)
         end
     end
     println("No quick solution. Using integer programming.")
+
+    return ortho_latin_2(n)
+end
+
+function ortho_latin_1(n::Int)
     MOD = Model(solver=GurobiSolver())
     @variable(MOD, X[1:n,1:n,1:n], Bin)
     @variable(MOD, Y[1:n,1:n,1:n], Bin)
@@ -139,6 +144,79 @@ function ortho_latin(n::Int, quick::Bool=true)
 
     return A,B
 end
+
+function ortho_latin_2(n::Int)
+    MOD = Model(solver=GurobiSolver())
+
+    # Z[i,j,k,l] is an indicator that there is a k in A[i,j] and
+    # an l in B[i,j]
+    @variable(MOD,Z[1:n,1:n,1:n,1:n], Bin)
+
+    # one entry per cell constraint
+    for i=1:n
+        for j=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for k=1:n for l=1:n) == 1)
+        end
+    end
+
+    # orthogonality constraint
+    for k=1:n
+        for l=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for i=1:n for j=1:n) == 1)
+        end
+    end
+
+    # Row constraints
+
+    for i=1:n
+        for k=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for j=1:n for l=1:n) == 1)
+        end
+    end
+
+    for i=1:n
+        for l=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for j=1:n for k=1:n) == 1)
+        end
+    end
+
+    # Col constraints
+    for j=1:n
+        for k=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for i=1:n for l=1:n) == 1)
+        end
+    end
+
+    for j=1:n
+        for l=1:n
+            @constraint(MOD, sum(Z[i,j,k,l] for i=1:n for k=1:n) == 1)
+        end
+    end
+
+    status = solve(MOD)
+
+    ZZ = getvalue(Z)
+    A = zeros(Int,n,n)
+    B = zeros(Int,n,n)
+
+    for i=1:n
+        for j=1:n
+            for k=1:n
+                for l=1:n
+                    if ZZ[i,j,k,l]>0
+                        A[i,j] = k
+                        B[i,j] = l
+                    end
+                end
+            end
+        end
+    end
+
+    return A,B
+end
+
+
+
 
 
 function ortho_latin(n::Int, r::Int, s::Int)
