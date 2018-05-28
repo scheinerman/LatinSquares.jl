@@ -113,6 +113,24 @@ WARNING: Variable value not defined for component of X. Check that the model was
 WARNING: Variable value not defined for component of Y. Check that the model was properly solved.
 ```
 
+## Attractive Printing
+
+The function `latin_print` can be used to print Latin squares, or
+pairs of orthogonal Latin squares, to the screen using Latin (and Greek)
+letters.
+```julia
+julia> A,B = ortho_latin(5);
+
+julia> print_latin(A,B)
+Aα Bβ Cγ Dδ Eε
+Bγ Cδ Dε Eα Aβ
+Cε Dα Eβ Aγ Bδ
+Dβ Eγ Aδ Bε Cα
+Eδ Aε Bα Cβ Dγ
+```
+Get help for the `latin_print` function to see various options.
+
+
 ## Command Line
 
 In the `src` directory, the file `run_latin.jl` allows the user to find
