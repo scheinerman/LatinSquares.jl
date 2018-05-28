@@ -115,7 +115,7 @@ WARNING: Variable value not defined for component of Y. Check that the model was
 
 ## Attractive Printing
 
-The function `latin_print` can be used to print Latin squares, or
+The function `print_latin` can be used to print Latin squares, or
 pairs of orthogonal Latin squares, to the screen using Latin (and Greek)
 letters.
 ```julia
@@ -128,7 +128,7 @@ Cε Dα Eβ Aγ Bδ
 Dβ Eγ Aδ Bε Cα
 Eδ Aε Bα Cβ Dγ
 ```
-Get help for the `latin_print` function to see various options.
+Get help for the `print_latin` function to see various options.
 
 
 ## Command Line
