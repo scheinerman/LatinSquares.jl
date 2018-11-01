@@ -15,6 +15,7 @@ function ortho_latin(n::Int, quick::Bool=true)
         try
             r,s = find_ortho_parameters(n)
             return ortho_latin(n,r,s)
+        catch
         end
     end
     println("No quick solution. Using integer programming.")
