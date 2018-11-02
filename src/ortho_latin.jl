@@ -24,7 +24,7 @@ function ortho_latin(n::Int, quick::Bool=true)
 end
 
 function ortho_latin_1(n::Int)
-    MOD = Model(solver=GurobiSolver())
+    MOD = Model(solver=SOLVER())
     @variable(MOD, X[1:n,1:n,1:n], Bin)
     @variable(MOD, Y[1:n,1:n,1:n], Bin)
 
@@ -147,7 +147,7 @@ function ortho_latin_1(n::Int)
 end
 
 function ortho_latin_2(n::Int)
-    MOD = Model(solver=GurobiSolver())
+    MOD = Model(solver=SOLVER())
 
     # Z[i,j,k,l] is an indicator that there is a k in A[i,j] and
     # an l in B[i,j]

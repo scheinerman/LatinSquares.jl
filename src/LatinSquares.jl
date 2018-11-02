@@ -1,7 +1,9 @@
 module LatinSquares
 using JuMP
 using MathProgBase
-using Gurobi
+using Cbc
+
+SOLVER = CbcSolver
 
 include("ortho_latin.jl")
 include("latin.jl")

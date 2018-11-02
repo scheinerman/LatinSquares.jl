@@ -1,5 +1,12 @@
 # LatinSquares
 
+
+
+[![Build Status](https://travis-ci.org/scheinerman/LatinSquares.jl.svg?branch=master)](https://travis-ci.org/scheinerman/LatinSquares.jl)
+
+[![codecov.io](http://codecov.io/github/scheinerman/LatinSquares.jl/coverage.svg?branch=master)](http://codecov.io/github/scheinerman/LatinSquares.jl?branch=master)
+
+
 This module creates Latin squares and pairs of orthogonal Latin squares.
 Where possible, simple number-theoretic constructions are used. Otherwise,
 we use Gurobi to solve an integer program.
