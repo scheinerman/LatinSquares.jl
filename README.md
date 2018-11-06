@@ -91,4 +91,53 @@ $ nohup julia run_latin.jl 8 > output.txt &
 ### Note
 
 We use the Cbc solver. If you have Gurobi on your system, that solver
-will run much faster.
+will run much faster. In that case, do this to switch solver.
+
+```
+julia> using Gurobi, LatinSquares
+
+julia> set_latin_solver(GurobiSolver)
+GurobiSolver
+
+julia> @time ortho_latin(6)
+No quick solution. Using integer programming.
+Academic license - for non-commercial use only
+Optimize a model with 216 rows, 1296 columns and 7776 nonzeros
+Variable types: 0 continuous, 1296 integer (1296 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [0e+00, 0e+00]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+00]
+Presolve time: 0.01s
+Presolved: 216 rows, 1296 columns, 7776 nonzeros
+Variable types: 0 continuous, 1296 integer (1296 binary)
+
+Root relaxation: objective 0.000000e+00, 441 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0  158          -    0.00000      -     -    0s
+     0     0    0.00000    0  194          -    0.00000      -     -    0s
+     0     0    0.00000    0  131          -    0.00000      -     -    0s
+     0     0    0.00000    0  131          -    0.00000      -     -    0s
+     0     0    0.00000    0   26          -    0.00000      -     -    0s
+     0     2    0.00000    0   26          -    0.00000      -     -    0s
+
+Explored 1016 nodes (39145 simplex iterations) in 1.52 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 0
+
+Model is infeasible
+Best objective -, best bound -, gap -
+┌ Warning: Not solved to optimality, status: Infeasible
+└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/solvers.jl:212
+┌ Warning: Infeasibility ray (Farkas proof) not available
+└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/solvers.jl:223
+┌ Warning: Variable value not defined for component of Z. Check that the model was properly solved.
+└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/JuMP.jl:475
+  1.608126 seconds (194.49 k allocations: 11.121 MiB, 0.48% gc time)
+([0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0], [0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0])
+```
