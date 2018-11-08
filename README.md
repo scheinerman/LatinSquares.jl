@@ -84,11 +84,25 @@ Long-running jobs can be conveniently sent to a file like this:
 $ nohup julia run_latin.jl 8 > output.txt &
 ```
 
+## Example
 
+Using the Gurobi solver, we can find a pair of 10-by-10 orthogonal Latin
+square in a mater of hours. Here's the result:
+```
+Aα Bβ Cγ Dδ Eε Fζ Gη Hθ Iι Jκ
+Bγ Iδ Hζ Eθ Aη Jα Dι Cκ Fε Gβ
+Gι Cε Iα Fκ Hδ Eβ Bθ Jζ Dη Aγ
+Hκ Dα Fη Aβ Gγ Cθ Iε Bι Jδ Eζ
+Iβ Fγ Aε Jη Dθ Gδ Cζ Eα Bκ Hι
+Jε Aζ Gθ Hγ Fι Dκ Eδ Iη Cβ Bα
+Dζ Eι Bδ Gα Iκ Hε Jγ Fβ Aθ Cη
+Cδ Hη Eκ Bε Jβ Aι Fα Dγ Gζ Iθ
+Eη Jθ Dβ Cι Bζ Iγ Aκ Gε Hα Fδ
+Fθ Gκ Jι Iζ Cα Bη Hβ Aδ Eγ Dε
+```
+See the next section for how to use different solvers.
 
-<hr>
-
-### Note
+## Other Solvers
 
 We use the Cbc solver. If you have Gurobi on your system, that solver
 will run much faster. In that case, do this to switch solver.
@@ -99,34 +113,35 @@ julia> using Gurobi, LatinSquares
 julia> set_latin_solver(GurobiSolver)
 GurobiSolver
 
-julia> @time ortho_latin(6)
+julia> @time A,B = ortho_latin(6)
 No quick solution. Using integer programming.
 Academic license - for non-commercial use only
-Optimize a model with 216 rows, 1296 columns and 7776 nonzeros
+Optimize a model with 222 rows, 1296 columns and 7782 nonzeros
 Variable types: 0 continuous, 1296 integer (1296 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 1e+00]
   Objective range  [0e+00, 0e+00]
   Bounds range     [1e+00, 1e+00]
   RHS range        [1e+00, 1e+00]
+Presolve removed 42 rows and 696 columns
 Presolve time: 0.01s
-Presolved: 216 rows, 1296 columns, 7776 nonzeros
-Variable types: 0 continuous, 1296 integer (1296 binary)
+Presolved: 180 rows, 600 columns, 3600 nonzeros
+Variable types: 0 continuous, 600 integer (600 binary)
 
-Root relaxation: objective 0.000000e+00, 441 iterations, 0.03 seconds
+Root relaxation: objective 0.000000e+00, 268 iterations, 0.01 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.00000    0  158          -    0.00000      -     -    0s
-     0     0    0.00000    0  194          -    0.00000      -     -    0s
+     0     0    0.00000    0  116          -    0.00000      -     -    0s
+     0     0    0.00000    0  146          -    0.00000      -     -    0s
      0     0    0.00000    0  131          -    0.00000      -     -    0s
      0     0    0.00000    0  131          -    0.00000      -     -    0s
      0     0    0.00000    0   26          -    0.00000      -     -    0s
      0     2    0.00000    0   26          -    0.00000      -     -    0s
 
-Explored 1016 nodes (39145 simplex iterations) in 1.52 seconds
-Thread count was 8 (of 8 available processors)
+Explored 925 nodes (34447 simplex iterations) in 1.53 seconds
+Thread count was 4 (of 4 available processors)
 
 Solution count 0
 
@@ -138,6 +153,7 @@ Best objective -, best bound -, gap -
 └ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/solvers.jl:223
 ┌ Warning: Variable value not defined for component of Z. Check that the model was properly solved.
 └ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/JuMP.jl:475
-  1.608126 seconds (194.49 k allocations: 11.121 MiB, 0.48% gc time)
+  1.554964 seconds (5.74 k allocations: 1.680 MiB)
 ([0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0], [0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0])
+
 ```
