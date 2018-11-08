@@ -38,6 +38,35 @@ function ortho_latin_IP(n::Int)
         end
     end
 
+    # Top row 11 22 33 ... nn
+    for i=1:n
+        @constraint(MOD, Z[1,i,i,i]==1)  # A[1,i] = B[1,i] = i
+    end
+
+    # This appears to be redundant
+    # for i=1:n
+    #     for j=1:n
+    #         if i!=j
+    #             @constraint(MOD, Z[1,i,i,j] == 0)
+    #         end
+    #     end
+    # end
+    #
+    # This appears not to help
+    #
+    # # First column
+    # for r=2:n
+    #     for i=1:n
+    #         for j=1:n
+    #             if i!=r
+    #                 @constraint(MOD, Z[r,1,i,j]==0)
+    #             end
+    #         end
+    #     end
+    # end
+
+
+
     # orthogonality constraint
     for k=1:n
         for l=1:n
