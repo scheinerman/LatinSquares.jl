@@ -25,8 +25,7 @@ end
 
 
 function ortho_latin_IP(n::Int)
-    MOD = Model(solver=SOLVER())
-
+    MOD = Model(with_optimizer(SOLVER.Optimizer))
     # Z[i,j,k,l] is an indicator that there is a k in A[i,j] and
     # an l in B[i,j]
     @variable(MOD,Z[1:n,1:n,1:n,1:n], Bin)
@@ -42,30 +41,6 @@ function ortho_latin_IP(n::Int)
     for i=1:n
         @constraint(MOD, Z[1,i,i,i]==1)  # A[1,i] = B[1,i] = i
     end
-
-    # This appears to be redundant
-    # for i=1:n
-    #     for j=1:n
-    #         if i!=j
-    #             @constraint(MOD, Z[1,i,i,j] == 0)
-    #         end
-    #     end
-    # end
-    #
-    # This appears not to help
-    #
-    # # First column
-    # for r=2:n
-    #     for i=1:n
-    #         for j=1:n
-    #             if i!=r
-    #                 @constraint(MOD, Z[r,1,i,j]==0)
-    #             end
-    #         end
-    #     end
-    # end
-
-
 
     # orthogonality constraint
     for k=1:n
@@ -101,9 +76,14 @@ function ortho_latin_IP(n::Int)
         end
     end
 
-    status = solve(MOD)
+    optimize!(MOD)
+    status = Int(termination_status(MOD))
 
-    ZZ = getvalue(Z)
+    if status != 1
+        error("No pair of orthogonal Latin squares of order $n can be found.")
+    end
+
+    ZZ = value.(Z)
     A = zeros(Int,n,n)
     B = zeros(Int,n,n)
 

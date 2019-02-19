@@ -8,9 +8,14 @@ SOLVER = CbcSolver
 
 export set_latin_solver
 
-function set_latin_solver(sol)
-    global SOLVER = sol
+"""
+`set_latin_solver(OPT::Module=Cbc)`
+"""
+function set_latin_solver(OPT::Module=Cbc)
+    global SOLVER = OPT
 end
+
+set_latin_solver()
 
 include("ortho_latin.jl")
 include("latin.jl")
