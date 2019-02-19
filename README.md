@@ -110,7 +110,7 @@ will run much faster. In that case, do this to switch solver.
 ```
 julia> using Gurobi, LatinSquares
 
-julia> set_latin_solver(GurobiSolver)
+julia> set_latin_solver(Gurobi)
 GurobiSolver
 
 julia> @time A,B = ortho_latin(6)
