@@ -87,7 +87,7 @@ $ nohup julia run_latin.jl 8 > output.txt &
 ## Example
 
 Using the Gurobi solver, we can find a pair of 10-by-10 orthogonal Latin
-square in a mater of hours. Here's the result:
+square in a matter of hours. Here's the result:
 ```
 Aα Bβ Cγ Dδ Eε Fζ Gη Hθ Iι Jκ
 Bγ Iδ Hζ Eθ Aη Jα Dι Cκ Fε Gβ
