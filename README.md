@@ -49,7 +49,6 @@ Eδ Aε Bα Cβ Dγ
 ```
 
 
-
 By default, we use a simple number-theoretic construction. When that fails,
 we switch to integer programming.
 ```
@@ -63,6 +62,28 @@ julia> 10A+B
  32  24  41  13
  21  33  12  44
 ```
+
+#### Self orthogonal Latin squares
+
+A Latin square is *self orthogonal* provided it is orthogonal to
+its transpose. Use `ortho_latin(n,true)` to create such a self
+orthogonal Latin square.
+```
+julia> A,B = ortho_latin(5,true);
+
+julia> 10A+B
+5×5 Array{Int64,2}:
+ 11  54  43  32  25
+ 45  33  51  24  12
+ 34  15  22  41  53
+ 23  42  14  55  31
+ 52  21  35  13  44
+
+julia> A==B'
+true
+```
+
+#### No pair of orthogonal Latin squares of order 6
 
 There does not exist a pair of 6-by-6 orthogonal Latin squares, and this
 verifies that fact:
@@ -100,7 +121,6 @@ Cδ Hη Eκ Bε Jβ Aι Fα Dγ Gζ Iθ
 Eη Jθ Dβ Cι Bζ Iγ Aκ Gε Hα Fδ
 Fθ Gκ Jι Iζ Cα Bη Hβ Aδ Eγ Dε
 ```
-See the next section for how to use different solvers.
 
 ## Other Solvers
 

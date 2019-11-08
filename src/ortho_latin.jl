@@ -1,17 +1,18 @@
 export ortho_latin, check_ortho
 
 """
-`A,B = ortho_latin(n,quick=true)` returns a pair of orthogonal `n`-by-`n`
-Latin squares. If `quick` is `true`, we first try to find the pair using
-basic number theory. If that fails, or if `quick` is set to `false`,
-integer programming is used.
+`A,B = ortho_latin(n)` returns a pair of orthogonal `n`-by-`n`
+Latin squares.
+
+`A,B = ortho_latin(n,true)` returns a pair of orthogonal Latin squares
+that are transposes of each other.
 
 `A,B = ortho_latin(n,r,s)` builds the Latin squares `latin(n,r)`
 and `latin(n,s)` and, if they are orthogonal, returns them as the
 answer. (Otherwise, throws an error.) See: `find_ortho_parameters`.
 """
-function ortho_latin(n::Int, quick::Bool=true)
-    if quick
+function ortho_latin(n::Int, self::Bool=false)
+    if !self
         try
             r,s = find_ortho_parameters(n)
             return ortho_latin(n,r,s)
@@ -20,11 +21,11 @@ function ortho_latin(n::Int, quick::Bool=true)
     end
     println("No quick solution. Using integer programming.")
 
-    return ortho_latin_IP(n)
+    return ortho_latin_IP(n,self)
 end
 
 
-function ortho_latin_IP(n::Int)
+function ortho_latin_IP(n::Int,self::Bool=false)
     MOD = Model(with_optimizer(SOLVER.Optimizer))
     # Z[i,j,k,l] is an indicator that there is a k in A[i,j] and
     # an l in B[i,j]
@@ -38,8 +39,10 @@ function ortho_latin_IP(n::Int)
     end
 
     # Top row 11 22 33 ... nn
-    for i=1:n
-        @constraint(MOD, Z[1,i,i,i]==1)  # A[1,i] = B[1,i] = i
+    if !self
+        for i=1:n
+            @constraint(MOD, Z[1,i,i,i]==1)  # A[1,i] = B[1,i] = i
+        end
     end
 
     # orthogonality constraint
@@ -75,6 +78,19 @@ function ortho_latin_IP(n::Int)
             @constraint(MOD, sum(Z[i,j,k,l] for i=1:n for k=1:n) == 1)
         end
     end
+
+    if self   # force A^T==B
+        for i=1:n
+            for j=1:n
+                for k=1:n
+                    for l=1:n
+                        @constraint(MOD, Z[i,j,k,l] == Z[j,i,l,k])
+                    end
+                end
+            end
+        end
+    end
+
 
     optimize!(MOD)
     status = Int(termination_status(MOD))
