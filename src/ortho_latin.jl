@@ -26,7 +26,7 @@ end
 
 
 function ortho_latin_IP(n::Int,self::Bool=false)
-    MOD = Model(get_optimizer())
+    MOD = Model(get_solver())
     # Z[i,j,k,l] is an indicator that there is a k in A[i,j] and
     # an l in B[i,j]
     @variable(MOD,Z[1:n,1:n,1:n,1:n], Bin)

@@ -126,49 +126,43 @@ will run much faster. In that case, do this to switch solver.
 ```
 julia> using Gurobi, LatinSquares, ChooseOptimizer
 
-julia> set_optimizer(Gurobi)
+julia> set_solver(Gurobi)
 GurobiSolver
 
-julia> @time A,B = ortho_latin(6)
+julia> A,B = ortho_latin(6)
 No quick solution. Using integer programming.
+Academic license - for non-commercial use only
 Academic license - for non-commercial use only
 Optimize a model with 222 rows, 1296 columns and 7782 nonzeros
 Variable types: 0 continuous, 1296 integer (1296 binary)
 Coefficient statistics:
   Matrix range     [1e+00, 1e+00]
   Objective range  [0e+00, 0e+00]
-  Bounds range     [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
   RHS range        [1e+00, 1e+00]
 Presolve removed 42 rows and 696 columns
 Presolve time: 0.01s
 Presolved: 180 rows, 600 columns, 3600 nonzeros
 Variable types: 0 continuous, 600 integer (600 binary)
 
-Root relaxation: objective 0.000000e+00, 268 iterations, 0.01 seconds
+Root relaxation: objective 0.000000e+00, 245 iterations, 0.01 seconds
 
     Nodes    |    Current Node    |     Objective Bounds      |     Work
  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 
-     0     0    0.00000    0  116          -    0.00000      -     -    0s
-     0     0    0.00000    0  146          -    0.00000      -     -    0s
-     0     0    0.00000    0  131          -    0.00000      -     -    0s
+     0     0    0.00000    0  135          -    0.00000      -     -    0s
+     0     0    0.00000    0  155          -    0.00000      -     -    0s
+     0     0    0.00000    0  122          -    0.00000      -     -    0s
      0     0    0.00000    0  131          -    0.00000      -     -    0s
      0     0    0.00000    0   26          -    0.00000      -     -    0s
      0     2    0.00000    0   26          -    0.00000      -     -    0s
 
-Explored 925 nodes (34447 simplex iterations) in 1.53 seconds
+Explored 1536 nodes (52753 simplex iterations) in 3.18 seconds
 Thread count was 4 (of 4 available processors)
 
 Solution count 0
 
 Model is infeasible
 Best objective -, best bound -, gap -
-┌ Warning: Not solved to optimality, status: Infeasible
-└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/solvers.jl:212
-┌ Warning: Infeasibility ray (Farkas proof) not available
-└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/solvers.jl:223
-┌ Warning: Variable value not defined for component of Z. Check that the model was properly solved.
-└ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/JuMP.jl:475
-  1.554964 seconds (5.74 k allocations: 1.680 MiB)
-([0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0], [0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0])
+ERROR: No pair of orthogonal Latin squares of order 6 can be found.
 ```
