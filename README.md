@@ -124,13 +124,15 @@ Fθ Gκ Jι Iζ Cα Bη Hβ Aδ Eγ Dε
 
 ## Other Solvers
 
+Use the `ChooseOptimizer` module to select an alternative solver.
+
 We use the Cbc solver. If you have Gurobi on your system, that solver
 will run much faster. In that case, do this to switch solver.
 
 ```
-julia> using Gurobi, LatinSquares
+julia> using Gurobi, LatinSquares, ChooseOptimizer
 
-julia> set_latin_solver(Gurobi)
+julia> set_optimizer(Gurobi)
 GurobiSolver
 
 julia> @time A,B = ortho_latin(6)
@@ -175,5 +177,4 @@ Best objective -, best bound -, gap -
 └ @ JuMP ~/.julia/packages/JuMP/Xvn0n/src/JuMP.jl:475
   1.554964 seconds (5.74 k allocations: 1.680 MiB)
 ([0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0], [0 0 … 0 0; 0 0 … 0 0; … ; 0 0 … 0 0; 0 0 … 0 0])
-
 ```
