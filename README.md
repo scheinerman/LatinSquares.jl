@@ -1,5 +1,8 @@
 # LatinSquares
 
+[![Build Status](https://travis-ci.com/scheinerman/LatinSquares.jl.svg?branch=master)](https://travis-ci.com/scheinerman/LatinSquares.jl)
+
+
 
 This module creates Latin squares and pairs of orthogonal Latin squares.
 Where possible, simple number-theoretic constructions are used. Otherwise,
