@@ -2,9 +2,9 @@
 
 # alphabets
 
-abc = [ "$ch" for ch in 'a':'z']
+abc = ["$ch" for ch = 'a':'z']
 ABC = uppercase.(abc)
-greek = [ "$(Char(t))" for t in 945:969 if t != 962 ]
+greek = ["$(Char(t))" for t in 945:969 if t != 962]
 GREEK = uppercase.(greek)
 
 export print_latin
@@ -28,11 +28,11 @@ The following pre-built character sets are available:
 * `LatinSquares.GREEK`: upper case Greek letters 
 """
 
-function print_latin(A::Matrix{Int}, chars::Array{String,1}=ABC)
-    r,c = size(A)
-    for i=1:r
-        for j=1:c
-            print(chars[A[i,j]])
+function print_latin(A::Matrix{Int}, chars::Array{String,1} = ABC)
+    r, c = size(A)
+    for i = 1:r
+        for j = 1:c
+            print(chars[A[i, j]])
             if j < c
                 print(" ")
             else
@@ -44,12 +44,17 @@ function print_latin(A::Matrix{Int}, chars::Array{String,1}=ABC)
 end
 
 
-function print_latin(A::Matrix{Int}, B::Matrix{Int}, chars1::Array{String}=ABC, chars2::Array{String}=greek)
-    r,c = size(A)
-    for i=1:r
-        for j=1:c
-            print(chars1[A[i,j]]*chars2[B[i,j]])
-            if j<c
+function print_latin(
+    A::Matrix{Int},
+    B::Matrix{Int},
+    chars1::Array{String} = ABC,
+    chars2::Array{String} = greek,
+)
+    r, c = size(A)
+    for i = 1:r
+        for j = 1:c
+            print(chars1[A[i, j]] * chars2[B[i, j]])
+            if j < c
                 print(" ")
             else
                 println()
