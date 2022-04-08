@@ -1,6 +1,6 @@
 name = "LatinSquares"
 uuid = "c3c424ec-ae8f-5049-b7bf-f9296ef684c8"
-version = "0.3.1"
+version = "0.3.2"
 
 [deps]
 Cbc = "9961bab8-2fa3-5c5a-9d89-47fab24efd76"
@@ -11,7 +11,7 @@ MathProgBase = "fdba3010-5040-5b88-9595-932c9decdf73"
 [compat]
 julia = "1"
 ChooseOptimizer = "0.1"
-JuMP = "0.21, 0.22, 0.23"
+JuMP = "0.21, 0.22, 0.23, 1"
 MathProgBase = "0.7"
 Cbc = "0.9"
 
