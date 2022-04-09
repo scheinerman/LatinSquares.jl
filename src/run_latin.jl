@@ -1,22 +1,22 @@
-using LatinSquares
+using LatinSquares, ChooseOptimizer, Gurobi
+
+set_solver(Gurobi)
+set_solver_verbose(false)
 
 if length(ARGS) == 0
     println("Usage: julia run_latin n")
     exit()
 end
-n = parse(ARGS[1])
+n = parse(Int,ARGS[1])
 println("n = $n")
 println("Starting up")
 
-# Here's a place to adjust Gurobi settings
-# env = Gurobi.Env()
-# setparam!(env,"Threads", 8)
-# setparam!(env,"ConcurrentMIP", 2)
 
-tic();
-try
+@time try
     A, B = ortho_latin(n)
     println("A = $A")
     println("B = $B")
+    print_latin(A,B)
+catch
+    println("There is no pair of orthogonal Latin square of order $n")
 end
-toc()

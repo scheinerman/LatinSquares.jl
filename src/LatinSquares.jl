@@ -4,10 +4,6 @@ using MathProgBase
 using Cbc
 using ChooseOptimizer
 
-SOLVER = CbcSolver
-
-
-export set_latin_solver
 
 
 include("ortho_latin.jl")
