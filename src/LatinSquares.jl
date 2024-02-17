@@ -1,7 +1,7 @@
 module LatinSquares
 using JuMP
 using MathProgBase
-using Cbc
+using GLPK
 using ChooseOptimizer
 
 

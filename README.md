@@ -1,8 +1,5 @@
 # LatinSquares
 
-[![Build Status](https://travis-ci.com/scheinerman/LatinSquares.jl.svg?branch=master)](https://travis-ci.com/scheinerman/LatinSquares.jl)
-
-
 
 This module creates Latin squares and pairs of orthogonal Latin squares.
 Where possible, simple number-theoretic constructions are used. Otherwise,
@@ -123,7 +120,7 @@ Fθ Gκ Jι Iζ Cα Bη Hβ Aδ Eγ Dε
 
 Use the `ChooseOptimizer` module to select an alternative solver.
 
-We use the Cbc solver. If you have Gurobi on your system, that solver
+We use the GLPK solver. If you have Gurobi on your system, that solver
 will run much faster. In that case, do this to switch solver.
 
 ```
