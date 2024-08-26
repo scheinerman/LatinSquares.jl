@@ -85,9 +85,9 @@ There does not exist a pair of 6-by-6 orthogonal Latin squares, and this
 verifies that fact:
 ```
 julia> A,B = ortho_latin(6);
+No quick solution. Using integer programming.
+ERROR: No pair of orthogonal Latin squares of order 6 can be found.
 ```
-However, the run time with the Cbc solver is very long. Changing the code
-to use the Gurobi solver makes this calculation feasible.
 
 
 ## Command Line
