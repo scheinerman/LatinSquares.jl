@@ -59,7 +59,7 @@ julia> 10A+B
  21  33  12  44
 ```
 
-## Self orthogonal Latin squares
+## Self Orthogonal Latin Squares
 
 A Latin square is *self orthogonal* provided it is orthogonal to
 its transpose. Use `ortho_latin(n,true)` to create such a self
@@ -79,7 +79,7 @@ julia> A==B'
 true
 ```
 
-## No pair of orthogonal Latin squares of order 6
+## No Pair of Orthogonal Latin Squares of Order 6
 
 There does not exist a pair of 6-by-6 orthogonal Latin squares, and this
 verifies that fact:
