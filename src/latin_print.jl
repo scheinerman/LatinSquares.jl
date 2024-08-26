@@ -4,7 +4,7 @@
 
 abc = ["$ch" for ch = 'a':'z']
 ABC = uppercase.(abc)
-greek = ["$(Char(t))" for t in 945:969 if t != 962]
+greek = ["$(Char(t))" for t = 945:969 if t != 962]
 GREEK = uppercase.(greek)
 
 export print_latin

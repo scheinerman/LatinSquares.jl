@@ -1,10 +1,11 @@
 module LatinSquares
 using JuMP
-using MathProgBase
-using GLPK
+# using MathProgBase
 using ChooseOptimizer
 
-set_solver(GLPK)
+function __init__()
+    set_solver_verbose(false)
+end
 
 include("ortho_latin.jl")
 include("latin.jl")
